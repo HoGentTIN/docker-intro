@@ -83,7 +83,7 @@ We still have a lot of drawbacks:
 
 ### How it all fits together
 
-![](https://blog.octo.com/docker-registry-first-steps/docker-stages_resize.webp)
+![](https://blog.octo.com/docker-registry-first-steps/docker-stages.webp)
 
 <!-- https://blog.octo.com/docker-registry-first-steps -->
 
