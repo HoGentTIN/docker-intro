@@ -39,6 +39,7 @@ A lot of drawbacks:
 ![](https://img.vembu.com/wp-content/uploads/2022/08/type-1-and-type-2-hypervisors-01.png) ![](https://img.vembu.com/wp-content/uploads/2022/08/type-1-and-type-2-hypervisors-02.png)
 
 ---
+
 We still have a lot of drawbacks:
 
 -   TODO
@@ -71,13 +72,54 @@ We still have a lot of drawbacks:
 
 ### What are images?
 
----
-
-### DockerHub
+-   A template containing everything needed to run an application
+-   Defined by a `Dockerfile`
 
 ---
 
 ### What are containers?
+
+-   An isolated environment for your code.
+    -   Has no knowlegde about your system.
+-
+
+---
+
+### How are images and containers linked together?
+
+E.g. compiled program
+
+```mermaid
+flowchart LR
+    sourcecode["source code\n(e.g. notepad.cpp)"]
+    executable["executable\n(e.g. notepad.exe)"]
+    sourcecode --> executable
+    executable --> program1["notepad running (1)"]
+    executable --> program2["notepad running (2)"]
+    executable --> program3["notepad running (3)"]
+```
+
+---
+
+![](./img/notepads.png)
+
+---
+
+```mermaid
+flowchart LR
+    dockerfile["docker file (e.g. `Dockerfile`)"]
+    image["image\n(e.g. nginx)"]
+    dockerfile --> image
+    image --> container1["nginx running (1)"]
+    image --> container2["nginx running (2)"]
+    image --> container3["nginx running (3)"]
+```
+
+---
+
+### DockerHub
+
+![](./img/dockerhub.png)
 
 ---
 
@@ -97,6 +139,10 @@ We still have a lot of drawbacks:
 
 ---
 
+### What are tags?
+
+---
+
 ## Docker Compose
 
 ---
@@ -107,3 +153,4 @@ Notes:
 -   https://www.atlassian.com/microservices/cloud-computing/containers-vs-vms
 -   https://ubuntu.com/blog/containerization-vs-virtualization
 -   https://learn.microsoft.com/en-us/virtualization/windowscontainers/about/containers-vs-vm
+-   https://www.docker.com/blog/how-to-use-the-official-nginx-docker-image/
