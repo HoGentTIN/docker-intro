@@ -1,0 +1,14 @@
+@import url(https://hogenttin.github.io/hogent-revealmd/_assets/theme.css);
+
+img {
+    max-height: 75vh;
+}
+
+section > ul,
+section > ol {
+    margin-bottom: 0.5em;
+}
+
+pre code {
+    max-height: 75vh;
+}
