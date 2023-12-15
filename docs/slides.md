@@ -12,7 +12,7 @@
 
 ## A lot of drawbacks
 
--   All software is installed on a single OS
+-   All software (per client) is installed on a single server with a single OS
     -   A lot of clutter
     -   Difficult to run different versions of certain software
         -   E.g. mariadb:9, mariadb:10, mariadb:11
@@ -25,6 +25,7 @@
         -   E.g. when a disk is failing
     -   Can't scale hardware to software (dynamically)
         -   E.g. we need more RAM, storage, ...
+-   Needs a lot of physical space, electricity
 
 ---
 
@@ -49,9 +50,11 @@
 -   2 types:
     -   Type 1 (bare metal)
         -   OS between hardware and virtual machines
-    -   Type 2 (software)
+        -   Most efficient, less wasted resources
+    -   Type 2 (hosted)
         -   Program on top of OS
         -   You can run regular program's next to the OS
+        -   Often a lot easier
 
 ---
 
@@ -77,7 +80,13 @@
 
 We still have a lot of drawbacks:
 
--   TODO
+-   A VM per application creates a lot of overhead
+    -   Multiple OS layers (e.g. hypervisor type 2)
+-   Creating a VM takes time
+    -   E.g. installing the OS each time is cumbersome
+-   A VM is large
+    -   Uses a lot of disk space
+-   A lot more complex
 
 ---
 
@@ -100,9 +109,17 @@ We still have a lot of drawbacks:
 ## When to use what?
 
 -   Virtual machines
-    -   Deploying infrastructure
+    -   E.g. deploying infrastructure
 -   Containers
-    -   Deploying applications
+    -   E.g. deploying applications
+-   Choose depending on your situation
+    -   Each has pro's and cons
+
+---
+
+## Warning
+
+![](./img/nail-quote-abraham-maslow.webp)
 
 ---
 
@@ -112,16 +129,21 @@ We still have a lot of drawbacks:
 
 ### Images
 
--   A template containing everything needed to run an application
+-   A file containing everything needed to run an application
+-   "template", "blueprint", ...
 -   Defined by a `Dockerfile`
+-   Immutable
+-   Layered
 -   Create an image if you want to dockerize your application and want others to use it easily
 
 ---
 
 ### Containers
 
--   An isolated environment for your code.
-    -   Has no knowledge about your system.
+-   A running instance of an image
+-   An isolated environment for your code
+    -   Has no knowledge about your system
+-   Mutable
 -   Use a container if you easily want to use an existing application for which an image exists
     -   You'll probably use containers more often than building images
 
@@ -136,9 +158,9 @@ flowchart LR
     sourcecode["source code\n(e.g. notepad.cpp)"]
     executable["executable\n(e.g. notepad.exe)"]
     sourcecode --> executable
-    executable --> program1["notepad running (1)"]
-    executable --> program2["notepad running (2)"]
-    executable --> program3["notepad running (3)"]
+    executable --> program1["Program notepad running (1)"]
+    executable --> program2["Program notepad running (2)"]
+    executable --> program3["Program notepad running (3)"]
 ```
 
 ---
@@ -152,14 +174,16 @@ flowchart LR
     dockerfile["docker file (e.g. `Dockerfile`)"]
     image["image\n(e.g. nginx)"]
     dockerfile --> image
-    image --> container1["nginx running (1)"]
-    image --> container2["nginx running (2)"]
-    image --> container3["nginx running (3)"]
+    image --> container1["Container nginx running (1)"]
+    image --> container2["Container nginx running (2)"]
+    image --> container3["Container nginx running (3)"]
 ```
 
 ---
 
 ### Dockerfile
+
+-   The source code of an image
 
 ```docker
 # Base image (with tag)
@@ -183,6 +207,8 @@ Tutorial: https://docs.docker.com/build/building/packaging/
 ---
 
 ### DockerHub
+
+- up- or download images on https://hub.docker.com/
 
 ![](./img/dockerhub.png)
 
@@ -241,7 +267,7 @@ sudo docker run hello-world
 
 -   Port 8123 on host (e.g. your laptop)
 -   Port 80 inside the container (e.g. nginx webserver)
--   Now, you can surf to http://localhost:8123
+-   Now you can surf to http://localhost:8123
 -   When you stop the container, you can't surf to the website anymore.
 
 ```console
@@ -249,6 +275,10 @@ sudo docker run -p 8123:80 nginx
 ```
 
 ![](./img/docker-nginx.png)
+
+---
+
+<img src="https://www.plantuml.com/plantuml/svg/JOux2WD1241xJ-455l9fKeMzYXWX2xEwE4uLvkwPJqXYvyFtSCr17cLFG1pcMB8u0Dj-c8e69cDAJyk1By0sXtbiYhVpvJhsVe_BSfzae9_Cfa6RYd_a_y3fIxev4vDLgB2AFjfJRm00" height="800" />
 
 ---
 
@@ -356,7 +386,7 @@ sudo docker run -p 8123:80 nginx
 ### Example 1
 
 ```console
-sudo docker run run -p 8123:80 -v ./website/:/usr/share/nginx/html:ro nginx:1.24.0
+sudo docker run -p 8123:80 -v ./website/:/usr/share/nginx/html:ro nginx:1.24.0
 ```
 
 ... becomes ...
@@ -453,6 +483,10 @@ services:
 
 ---
 
+<img src="https://www.plantuml.com/plantuml/svg/ROv13e9034NtFKKlG8AI65Q6EtY2EZHAc9cIJbaOmztLmI0OPZ59t_-__KqoKXk3XzHtSI2bW4x2896ZNUpX6PMTKRnv1Y1deZWcLe35XLuS-RiamoVW-msYraMi3ySgpny_5iLv9XdzmgsudhN88F5tmv-5ZAwq4LTdggeyBNo2dJoreOki-_6whCirpoLpsuqomVnFq71in-1V" height="800" />
+
+---
+
 If you really want it (e.g. for development), you can add a port mapping:
 
 ```yml
@@ -474,6 +508,10 @@ services:
         ports:
             - 8123:8080
 ```
+
+---
+
+<img src="https://www.plantuml.com/plantuml/svg/ROzBoeD048JtVOg-W3_-4OAhu1roWixO9E8yfATTXE3TGph1XxWPgAzggkWcAucEmKFkkpYGK42Nmf0YHxtgqpCAEwLuzmn0JfFWc5a0vXJwvCW_KbPy0IBYa4IxYFN_gLhhgYhF7st_iIWkSs8XbZ6qrBV9zIo5WSo_ZLs4b6wqCNV3Vsl3oBotM1CST5CRkiXoN5sNTRdcTf8rRvm9lky43STs3FuD" height="800" />
 
 ---
 
@@ -510,7 +548,7 @@ services:
 
 ---
 
----
+## Remember
 
 -   No IP-adresses needed
     -   E.g. `WORDPRESS_DB_HOST: database:3306`
@@ -523,7 +561,7 @@ services:
     -   Almost never needed in `docker-compose.yml`
     -   Probably an error!
         -   E.g. `WORDPRESS_DB_HOST: localhost:3306` would look for the database in it's own (`wordpress`) container instead of the `database` container.
-        -   Remember `docker-compose.yml` here virtualized 2 nodes (~computers) in a network.
+        -   Keep in mind: `docker-compose.yml` here virtualized 2 nodes (~ computers) in a network.
 
 ---
 
@@ -541,6 +579,16 @@ services:
 ---
 
 ![](./img/docker-compose-logs.png)
+
+---
+
+## You can do a lot more!
+
+- https://docs.docker.com/get-started/overview/
+- https://docs.docker.com/compose/
+- https://www.linuxserver.io/
+- https://github.com/awesome-selfhosted/awesome-selfhosted
+- https://kubernetes.io/
 
 ---
 
