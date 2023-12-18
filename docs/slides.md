@@ -208,7 +208,7 @@ Tutorial: https://docs.docker.com/build/building/packaging/
 
 ### DockerHub
 
-- up- or download images on https://hub.docker.com/
+-   up- or download images on https://hub.docker.com/
 
 ![](./img/dockerhub.png)
 
@@ -345,6 +345,23 @@ sudo docker run -p 8123:80 nginx
 ---
 
 ![](./img/tags-2.png)
+
+---
+
+### Environment variables
+
+-   Sometimes, containers need some additional information
+    -   E.g. root password for container, timezone, ...
+
+---
+
+### Extra lab:
+
+-   Try out these little games, can you connect and play?
+    -   https://hub.docker.com/r/modem7/wordle
+    -   https://hub.docker.com/r/jsonsong/docker-2048
+-   Host your own Minecraft server, can you connect and play? Does the world keep existing if you delete the container and start a new one?
+    -   https://docker-minecraft-server.readthedocs.io/en/latest/
 
 ---
 
@@ -584,11 +601,11 @@ services:
 
 ## You can do a lot more!
 
-- https://docs.docker.com/get-started/overview/
-- https://docs.docker.com/compose/
-- https://www.linuxserver.io/
-- https://github.com/awesome-selfhosted/awesome-selfhosted
-- https://kubernetes.io/
+-   https://docs.docker.com/get-started/overview/
+-   https://docs.docker.com/compose/
+-   https://www.linuxserver.io/
+-   https://github.com/awesome-selfhosted/awesome-selfhosted
+-   https://kubernetes.io/
 
 ---
 
