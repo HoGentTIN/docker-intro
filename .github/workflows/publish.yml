@@ -16,7 +16,7 @@ jobs:
         steps:
             - run: shopt -s globstar
             - uses: actions/checkout@v4
-            - uses: DavidAnson/markdownlint-cli2-action@v18
+            - uses: DavidAnson/markdownlint-cli2-action@v22
               with:
                   globs: "**/*.md"
 
